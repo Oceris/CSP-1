@@ -23,6 +23,7 @@ public class CSP {
     private List<Variable> variables;
     private List<Domain> domains;
     private List<Constraint> constraints;
+    private List<ArrayList<Variable>> lines;
 
     /**
      * Lookup, which maps a variable to its index in the list of variables.
@@ -43,6 +44,7 @@ public class CSP {
         constraints = new ArrayList<Constraint>();
         varIndexHash = new Hashtable<Variable, Integer>();
         cnet = new Hashtable<Variable, List<Constraint>>();
+        initializeLines(//tutaj tablica zmiennych);
     }
 
     /**
@@ -141,5 +143,20 @@ public class CSP {
         result.varIndexHash = varIndexHash;
         result.cnet = cnet;
         return result;
+    }
+
+    private void initializeLines(Variable[][] variables) {
+        int temp = 0;
+        lines = new ArrayList<ArrayList<Variable>>();
+        for(int i = 0;i<variables.length;i++) {
+            lines.add(new ArrayList<Variable>());
+            lines.add(new ArrayList<Variable>());
+            for(int j = 0;j<variables[i].length;j++) {
+                lines.get(temp).add(variables[i][j]);
+                lines.get(temp+1).add(variables[j][i]);
+            }
+            temp++;
+        }
+
     }
 }
